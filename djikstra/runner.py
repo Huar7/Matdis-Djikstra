@@ -1,14 +1,11 @@
 class DjikstraRunner:
     def __init__(self):
         self.performance_nodes = []
-        self.finale = []
 
         pass
     
-    def run(self, first_position, target, already_visited=[]):
-        
+    def run(self, first_position, target, already_visited=[], finale_data=[]):
         for i in range(len(first_position.connection)): # menerima parameter dari Graph
-            print(first_position.connection[i].label)
 
             if i == 0:
                 currently_path = []
@@ -22,15 +19,17 @@ class DjikstraRunner:
                 for h in currently_path:
                     print(f'hasil sorting: {h.label}') ## hasil kini terbuka
 
-            print(currently_path[i])
+            print(currently_path[i].label)
             if currently_path[i] == target: ## untuk pengecekan target terhadapa posisi utama
                 print("-------------Found target-------------")
-                self.finale.append(currently_path[i])
+                finale_data.append(currently_path[i])
                 break
 
+            elif target in finale_data:
+                finale_data.append(currently_path[i])
+                break
+            
                 
-            if target in currently_path:
-                pass
 
 
             if currently_path[i] in already_visited:
@@ -38,11 +37,13 @@ class DjikstraRunner:
                 continue
             already_visited.append(currently_path[i])
 
-            self.run(currently_path[i], target, already_visited=already_visited)
+            self.run(currently_path[i], target, already_visited=already_visited, finale_data=finale_data)
             
 
-        return
+        return finale_data
     
+
+
     def buble_sorting(self, current_data: list) -> list:
         ## ini untuk melaukukan sorting berdasarkan algoritmanyai
         for i in range(len(current_data)):
