@@ -8,6 +8,8 @@ class Graph:
     def connect_graph(self, graph, jarak:float):
         self.connection.append(graph)
         self.jarak.append(jarak)
+        graph.connection.append(self)
+        graph.jarak.append(jarak)
 
     def debugging(self):
         for i in range(len(self.connection)):
